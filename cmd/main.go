@@ -6,6 +6,7 @@ import (
 	"http/test/internal/auth"
 	"http/test/internal/link"
 	"http/test/pkg/db"
+	"http/test/pkg/middleware"
 	"net/http"
 )
 
@@ -25,9 +26,12 @@ func main() {
 		LinkRepository: linkRepository,
 	})
 
+	// Middleware
+	stack := middleware.Chain(middleware.CORS, middleware.Logging)
+
 	server := http.Server{
 		Addr:    "localhost:8081",
-		Handler: router,
+		Handler: stack(router),
 	}
 
 	fmt.Println("Server starting on port 8081")
