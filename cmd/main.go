@@ -5,6 +5,7 @@ import (
 	"http/test/configs"
 	"http/test/internal/auth"
 	"http/test/internal/link"
+	"http/test/internal/stat"
 	"http/test/internal/user"
 	"http/test/pkg/db"
 	"http/test/pkg/middleware"
@@ -19,6 +20,7 @@ func main() {
 	// Repositories
 	linkRepository := link.NewLinkRepository(dbInstance)
 	userRepository := user.NewUserRepository(dbInstance)
+	statRepository := stat.NewStatRepository(dbInstance)
 
 	// Services
 	authService := auth.NewAuthService(userRepository)
@@ -30,6 +32,7 @@ func main() {
 	})
 	link.NewLinkHandler(router, link.LinkHandlerDeps{
 		LinkRepository: linkRepository,
+		StatRepository: statRepository,
 		Config:         conf,
 	})
 

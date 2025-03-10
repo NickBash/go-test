@@ -55,4 +55,8 @@ ssh:
 	@echo "Entering Go service container..."
 	$(DOCKER_COMPOSE) exec $(GO_SERVICE) sh
 
+migrate:
+	@echo "Start automigrate..."
+	go run migrations/auto.go
+
 .PHONY: build up down rebuild clean test run deps logs ssh
