@@ -1,5 +1,9 @@
 package event
 
+const (
+	LinkVisitedEvent = "link.visited"
+)
+
 type Event struct {
 	Type string
 	Data any
